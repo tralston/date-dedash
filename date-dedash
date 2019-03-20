@@ -10,7 +10,7 @@ do
     ret=1
     continue
   fi
-  echo "Processing $f file..."
+  echo "Processing $f ..."
   if [[ ( $f =~ ^([0-9]{4})-?([0-9]{2})-?([0-9]{2})\ *(-\ *)?(.*)$ ) ]] # Has an 8 digit number, maybe date, at front
   then # echo "Congrats: File $f passes 8-digit number test."
     year=${BASH_REMATCH[1]}
