@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -x
+
 display_usage() {
   echo
   echo "date-dedash v0.1.0"

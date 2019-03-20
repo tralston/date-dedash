@@ -49,7 +49,21 @@ VERSION="0.1.0"
     [ "${lines[0]}" = "date-dedash v$VERSION" ]
     [[ "${lines[1]}" =~ "Copyright" ]]
     [[ "${lines[2]}" =~ "Usage: date-dedash" ]]
+}
 
+@test "-h or --help prints usage et. al, then quits" {
+    run date-dedash -h
+    [[ "${lines[2]}" =~ "Usage: date-dedash" ]]
+    [ "$status" -eq 0 ]
+
+    run date-dedash --help
+    [[ "${lines[2]}" =~ "Usage: date-dedash" ]]
+    [ "$status" -eq 0 ]
+
+    # Invoking command with --help and file will not process file
+    run date-dedash --help somefile
+    [[ "${lines[${#lines[@]}-1]}" =~ "github.com/tralston" ]]
+    [ "$status" -eq 0 ]
 }
 
 @test "ensure files are passed if supplying options" {
