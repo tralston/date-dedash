@@ -1,8 +1,52 @@
 #!/bin/bash
+# set -x
+display_usage() {
+  echo
+  echo "date-dedash v0.1.0"
+  echo "Copyright (C) 2017-2019 by Taylor Ralston"
+  echo "Usage: $(basename $0) [-n] [file ...]"
+  echo "Options"
+  echo " -h, --help             Display this help message."
+  echo " -n, --dry-run          Performs a dry run, i.e. output without the backup (log files will"
+  echo "     --version          Displays the version"
+  echo
+  echo "For more detailed help, please see the README file:"
+  echo
+  echo "https://github.com/tralston/date-dedash/blob/master/README.md"
+  echo
+}
 
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
 ret=0
+PARAMS=""
+
+if [ $# -eq 0 ]; then
+  display_usage
+  exit 0
+fi
+
+# Process arguments, if any
+while (( "$#" )); do
+  case "$1" in
+    -h|--help)
+      display_usage
+      exit 0
+      ;;
+    -n|--dry-run)
+      DRY_RUN="true"
+      shift
+      ;;
+    *) # Preserve positional parameters
+      PARAMS="$PARAMS \"$1\""
+      shift
+      ;;
+  esac
+done
+
+# Set positional parameters to their place in $0..$n
+eval set -- "$PARAMS"
+
 for f in $*
 do
   if [ ! -f "$f" ]; then

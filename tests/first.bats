@@ -4,6 +4,8 @@ diag() {
     echo "$@" | sed -e 's/^/# /' >&3 ;
 }
 
+VERSION="0.1.0"
+
 @test "invoking date-dedash with non-existing file prints and error" {
     run date-dedash i_dont_exist
     [ "$status" -eq 1 ]
@@ -39,4 +41,25 @@ diag() {
 
     run date-dedash "2019-03-20 File With Spaces1" "2019-03-20 File With Spaces2" "2019-03-20 File With Spaces3"
     [ "$(echo $output | grep -io processing | wc -l)" -eq 3 ]
+}
+
+@test "invoking date-dedash with no arguments prints version, copyright, and usage" {
+    run date-dedash
+
+    [ "${lines[0]}" = "date-dedash v$VERSION" ]
+    [[ "${lines[1]}" =~ "Copyright" ]]
+    [[ "${lines[2]}" =~ "Usage: date-dedash" ]]
+
+}
+
+@test "ensure files are passed if supplying options" {
+    skip
+}
+
+@test "return error if unknown option supplied" {
+    skip
+}
+
+@test "--dry-run option makes no changes, outputs effects" {
+    skip
 }
