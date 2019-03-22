@@ -41,6 +41,8 @@ VERSION="0.1.0"
 
     run date-dedash "2019-03-20 File With Spaces1" "2019-03-20 File With Spaces2" "2019-03-20 File With Spaces3"
     [ "$(echo $output | grep -io processing | wc -l)" -eq 3 ]
+    rm 20190319*
+    rm 20190320*
 }
 
 @test "invoking date-dedash with no arguments prints version, copyright, and usage" {
@@ -66,14 +68,25 @@ VERSION="0.1.0"
     [ "$status" -eq 0 ]
 }
 
+@test "--dry-run option makes no changes, outputs effects" {
+    cd $BATS_TMPDIR
+    FILE="2019-03-19 abc"
+    touch "$FILE"
+
+    run date-dedash -n "$FILE"
+    [[ "${lines[0]}" =~ "DRY RUN" ]] # Message is shown
+    # diag "${lines[0]}"
+    result=$(echo $output | grep -ie '->' | wc -l)
+    # diag "$result"
+    [ "$result" -eq 1 ] # Shows that one file has been calculated, not changed
+    [ -e "$FILE" ] # Original file should be unmodified
+    rm  "$FILE"
+}
+
 @test "ensure files are passed if supplying options" {
     skip
 }
 
 @test "return error if unknown option supplied" {
-    skip
-}
-
-@test "--dry-run option makes no changes, outputs effects" {
     skip
 }
