@@ -1,4 +1,4 @@
-#!/usr/bin/env bats
+#!/usr/bin/env ./tests/lib/bats-core/bin/bats
 
 diag() {
     echo "$@" | sed -e 's/^/# /' >&3 ;
