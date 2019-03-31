@@ -9,30 +9,6 @@ diag() {
 
 VERSION="0.1.0"
 
-test_date() {
-  # Ensure date cmd exists
-  run "$1"
-  assert_success
-  # Ensure the '-d' option works as intended (to validate the date input)
-  run "$1" "+%Y%m%d" -d 20190329
-  assert_success
-  # Ensure the '-d' option works as intended (to error on an invalid date input)
-  run "$1" "+%Y%m%d" -d 20190399
-  assert_failure
-}
-
-@test "test OS for GNU date validation functionality" {
-  case "$OSTYPE" in
-    linux-gnu)
-      test_date date
-      ;;
-    darwin*)
-      # Ensure gdate cmd exists
-      test_date gdate
-      ;;
-  esac
-}
-
 @test "invoking date-dedash with non-existing file prints and error" {
     run date-dedash i_dont_exist
     [ "$status" -eq 1 ]

@@ -16,6 +16,19 @@ display_usage() {
   echo
 }
 
+validate_date() {
+  case "$OSTYPE" in
+    linux-gnu)
+      date "+%Y%m%d" -d "$1" &> /dev/null
+      ;;
+    darwin*)
+      date -j -f "%Y%m%d" "$1" &> /dev/null
+      ;;
+    *)
+      false;
+  esac
+}
+
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
 ret=0
@@ -66,7 +79,7 @@ do
     # echo "   Components: YEAR: ${year}, MONTH: ${month}, DAY: ${day}"
     # echo
     # echo "Performing date validation test..."
-    if `gdate "+%Y%m%d" -d ${full_date} >/dev/null 2>&1`
+    if validate_date ${full_date}
     then # echo "Passed date validation."
       # echo "Proceeding to adjust creation/modification date."
       # echo "BASH_REMATCH: ${BASH_REMATCH}; full_date: $full_date"
