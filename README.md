@@ -1,6 +1,6 @@
 # date-dedash
 
-![CI](https://github.com/tralston/date-dedash/workflows/CI/badge.svg)
+[![CI](https://github.com/tralston/date-dedash/workflows/CI/badge.svg)](https://github.com/tralston/date-dedash/actions?query=workflow:CI)
 
 A utility function that takes a date at the beginning of a filename and removes dashes.
 
