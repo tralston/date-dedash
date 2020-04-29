@@ -7,7 +7,7 @@ display_usage() {
   echo "Usage: $(basename $0) [-n] [file ...]"
   echo "Options"
   echo " -h, --help             Display this help message."
-  echo " -n, --dry-run          Performs a dry run, i.e. output without the backup (log files will"
+  echo " -n, --dry-run          Performs a dry run"
   echo "     --version          Displays the version"
   echo
   echo "For more detailed help, please see the README file:"
